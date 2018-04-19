@@ -86,19 +86,30 @@ class FB:
         time.sleep(0.5)
         driver.find_element_by_xpath("//*[@lay-value='745133655@qq.com']").click()  # 借款人
         driver.find_element_by_xpath("//*[@lay-filter='save']").click()  # 确定，创建标完成
+        time.sleep(4)
 
-#====================================================================================================================
+#=========================================初审=========================================================================
+        driver.switch_to.default_content()                                                          # 切回主菜单
         driver.switch_to.frame(
-            driver.find_element_by_css_selector('[%s]' % iframe_jiekuanchushen))  # 跳转到借款初审页面的iframe框架内
+            driver.find_element_by_css_selector('[%s]' % iframe_jiekuanchushen))                    # 跳转到借款初审页面的iframe框架内
+        above = driver.find_element_by_css_selector('.datagrid-cell.datagrid-cell-c1-action')
+        ActionChains(driver).move_to_element(above).perform()                                       # 悬停在“操作栏”，展开选项
+        time.sleep(1)
+        driver.find_element_by_link_text(u'初审').click()
+        driver.switch_to.default_content()
+        time.sleep(1)
+        check_status = self.config['check_status']
+        if check_status == '通过':
+            driver.find_element_by_css_selector('[value="1"]').click()
+        elif check_status == '不通过':
+            driver.find_element_by_css_selector('[value="0"]').click()
+        else:
+            driver.find_element_by_css_selector('[value="101"]').click()
+        driver.find_element_by_link_text(u"确定").click()     # 建标完成
+        time.sleep(2)
+        driver.find_element_by_link_text(u"确定").click()  # 关闭弹窗：操作成功！
 
-
-
-
-
-
-
-
-        time.sleep(20)
+        time.sleep(5)
         driver.quit()
 
 
