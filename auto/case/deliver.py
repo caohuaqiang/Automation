@@ -13,13 +13,13 @@ class FB:
     def __init__(self, config: dict):
         self.config = config
         self.driver = webdriver.Firefox()
-        self.driver.implicitly_wait(5)
+        self.driver.implicitly_wait(20)
         self.driver.maximize_window()
 
     def login(self):
         driver = self.driver
         driver.get('https://erp-t.jfcaifu.com/admin/login.html')
-        driver.find_element_by_id("userName1").clear()
+        driver.find_element_by_id("userName").clear()
         driver.find_element_by_id("userName").send_keys("admin")
         driver.find_element_by_id("password").clear()
         driver.find_element_by_id("password").send_keys("123456")
