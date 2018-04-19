@@ -109,7 +109,7 @@ class FB:
             driver.find_element_by_link_text(u"确定").click()     # 建标完成
             time.sleep(2)
             driver.find_element_by_link_text(u"确定").click()  # 关闭弹窗：操作成功！
-            time.sleep(5)
+            time.sleep(2)
         except Exception as err:
             filename = '../picture/%s.jpg' % time.strftime("%Y.%m.%d %H.%M.%S", time.localtime())
             driver.save_screenshot(filename)
