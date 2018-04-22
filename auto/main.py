@@ -1,4 +1,4 @@
-from auto.case.deliver import Manage
+from auto.case.Management import Manage
 from auto.method.useful import ini
 from pprint import pprint
 

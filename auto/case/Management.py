@@ -4,7 +4,9 @@ from selenium import webdriver
 from selenium.webdriver.support.select import Select
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.action_chains import ActionChains
-from pprint import pprint
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 import time
 from auto.method.useful import ini
 
@@ -13,10 +15,10 @@ class Manage:
     def __init__(self, config: dict):
         self.config = config
         self.driver = webdriver.Firefox()
-        self.driver.implicitly_wait(20)
+        self.driver.implicitly_wait(10)
         self.driver.maximize_window()
 
-    def login(self):
+    def Login(self):
         driver = self.driver
         driver.get('https://erp-t.jfcaifu.com/admin/login.html')
         driver.find_element_by_id("userName").clear()
@@ -31,7 +33,7 @@ class Manage:
     def Fa_Biao(self):
         driver = self.driver
         try:
-            self.login()
+            self.Login()
             for x in driver.find_elements_by_css_selector('.panel-title.panel-with-icon'):
                 if x.text == '借贷管理':
                     x.click()
@@ -82,10 +84,30 @@ class Manage:
             if self.config['increaseRate'] == 0:
                 pass
             else:
+                driver.find_element_by_css_selector('[placeholder="请填写加息比例"]').clear()
                 driver.find_element_by_css_selector('[placeholder="请填写加息比例"]').send_keys(self.config['increaseRate'])   # 显示加息率
-            driver.find_element_by_id("putStartTime").click()  # 开标时间
+            driver.find_element_by_id("putStartTime").click()                           # 开标时间
             driver.find_element_by_xpath(".//*[@id='laydate_ok']").click()
             time.sleep(0.5)
+
+            paytype = self.config['paytype']
+            if paytype == '一次性还款':
+                try:
+                    driver.find_element_by_css_selector('[value="10天派息1次"]').click()
+                    time.sleep(0.5)
+
+                    chq = driver.find_elements_by_css_selector('.layui-anim.layui-anim-upbit>dd')
+                    for a in chq:
+                        if a.text == paytype:
+                            a.click()
+                except Exception as err:
+                    print(err)
+            else:
+                print('当前发标配置属性选择为10天派息，默认为10天派息，不进行更改')
+
+            # huankuan = WebDriverWait(driver, 2, 0.5).until(
+            #     EC.presence_of_element_located((By.CSS_SELECTOR, '[value="一次性还款"]')))
+
             driver.find_element_by_xpath("//*[@placeholder='请选择客服']").click()
             time.sleep(0.5)
             driver.find_element_by_xpath("//*[@lay-value='kefu123']").click()  # 客服
