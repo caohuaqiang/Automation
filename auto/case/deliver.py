@@ -9,7 +9,7 @@ import time
 from auto.method.useful import ini
 
 
-class FB:
+class Manage:
     def __init__(self, config: dict):
         self.config = config
         self.driver = webdriver.Firefox()
@@ -124,11 +124,11 @@ class FB:
             driver.quit()
 
 
-if __name__ == '__main__':
-    config = eval(ini(filepath='..\\config\\borr.ini').get(section='borrow', option='config'))
-    pprint(config)
-    fb = FB(config)
-    fb.Fa_Biao()
+# if __name__ == '__main__':
+#     # config = eval(ini(filepath='..\\config\\borr.ini').get(section='borrow', option='config'))
+#     pprint(config)
+#     fb = Manage(config)
+#     fb.Fa_Biao()
 
 
 
