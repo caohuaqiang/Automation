@@ -15,6 +15,6 @@ if __name__ == '__main__':
     fp = open(filename, 'wb')
     runner = HTMLTestRunner(stream=fp,
                             title='曹华强接口测试报告',
-                            description='Implementation Example with:')
+                            description='接口测试用例执行情况报告')
     runner.run(discover)
     fp.close()
