@@ -1,8 +1,8 @@
 import pymysql
-from pymysql import connect, cursors
 from pymysql.err import OperationalError
-import os
 import configparser as cparser
+import sys, os
+from pprint import pprint
 
 # ==================== 读取db_config.ini文件设置========================
 base_dir = str(os.path.dirname(os.path.dirname(__file__)))          # 返回 F:/projects/Automation/pyinterface
@@ -14,14 +14,24 @@ cf.read(filepath)
 db_config = eval(cf.get(section='mysqlconf', option='mysql'))
 
 
-# =====================封装Mysql基本操作=======================
-class DB:
-    def __init__(self):
+# =====================封装Mysql基本操作================================
+class UseDataBase:
+    def __init__(self) -> None:
+        self.configuration = db_config
+
+    def __enter__(self):
         try:
-            # 连接数据库
-            self.conn = connect(**db_config)
+            self.conn = pymysql.connect(**self.configuration)
+            self.cursor = self.conn.cursor()
+            return self.cursor
+
         except OperationalError as err:
             print('Mysql Error %d: %s' % (err.args[0], err.args[1]))
+
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        self.conn.commit()
+        self.cursor.close()
+        self.conn.close()
 
     def clear(self, table_name):
         real_sql = 'DELETE FROM ' + table_name + ';'
@@ -42,36 +52,11 @@ class DB:
             cursor.execute(sql)
         self.conn.commit()
 
-    # 关闭数据库连接
-    def close(self):
-        self.conn.close()
 
-
-if __name__ == '__main__':
-    db = DB()
-    table_name = 'sign_event'
-    table_data = {'id': '12',
-                  'nameq': '红米',
-                  'limitq': 2000,
-                  'statusq': 1,
-                  'address': '北京会展中心',
-                  'start_time': '2018-04-24 13:46:00',
-                  'create_time': '2018-04-24 13:46:00'}
-    db.clear(table_name)
-    db.insert(table_name, table_data)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+# if __name__ == '__main__':
+#     with UseDataBase() as cursor:
+#         _SQL = "select user_id, user_name, pwd, mobile_phone, channel_type from rd_user where mobile_phone = '15821903152'"
+#         cursor.execute(_SQL)
+#         contents = cursor.fetchall()
+#         for data in contents:
+#             pprint(data)
