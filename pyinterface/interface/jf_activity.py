@@ -36,7 +36,7 @@ class Activity(unittest.TestCase):
         path_code = '/wap/user/getActivityCode.html'
         response_code = session.request(method='post', params={'mobilePhone': self.phone}, url=self.yuming + path_code)
         if response_code.status_code == 200:
-            print('获取验证码接口:', end=' ')
+            print('获取验证码接口:')
             pprint(response_code.json())
         else:
             print('验证码接口翻车！！！')
