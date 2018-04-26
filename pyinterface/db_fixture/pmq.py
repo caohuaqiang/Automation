@@ -1,3 +1,5 @@
+import sys, os
+sys.path.append(os.path.abspath(__file__))
 import pymysql
 from pymysql.err import OperationalError
 import configparser as cparser
