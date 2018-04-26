@@ -19,10 +19,10 @@ class Activity(unittest.TestCase):
     def tearDown(self):
         pass
 
-    def test_login(self, phone: str, password):
+    def test_login(self):
         session = self.session
         path_login = '/wap/user/doLogin.html'
-        response_login = session.request(method='post', params={'mobilePhone': phone, 'pwd': password}, url=self.yuming + path_login)
+        response_login = session.request(method='post', params={'mobilePhone': '15821903152', 'pwd': 'a1234567'}, url=self.yuming + path_login)
         if response_login.status_code == 200 and response_login.json()['msg'] == '登录成功！':
             return response_login
         else:
@@ -63,7 +63,7 @@ class Activity(unittest.TestCase):
                     pprint(data)
 
     @unittest.skip('跳过登录测试')
-    def test_login(self):
+    def test_loginz(self):
         """登录接口"""
         session = self.session
         path_login = '/wap/user/doLogin.html'
