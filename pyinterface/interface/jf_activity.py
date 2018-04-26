@@ -3,6 +3,7 @@ import requests
 import unittest
 from pprint import pprint
 import os, sys
+sys.path.append(os.path.abspath(__file__))
 parentdir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))  # 父路径-pyinterface
 sys.path.insert(0, parentdir)
 from pyinterface.db_fixture.pmq import UseDataBase
