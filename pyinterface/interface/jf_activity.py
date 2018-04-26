@@ -19,7 +19,7 @@ class Activity(unittest.TestCase):
     def tearDown(self):
         pass
 
-    def test_login(self):
+    def login(self, phone: str, password='a1234567') -> 'response':
         session = self.session
         path_login = '/wap/user/doLogin.html'
         response_login = session.request(method='post', params={'mobilePhone': '15821903152', 'pwd': 'a1234567'}, url=self.yuming + path_login)
@@ -62,8 +62,8 @@ class Activity(unittest.TestCase):
                     print('注册用户sql信息：')
                     pprint(data)
 
-    @unittest.skip('跳过登录测试')
-    def test_loginz(self):
+    # @unittest.skip('跳过登录测试')
+    def test_login(self):
         """登录接口"""
         session = self.session
         path_login = '/wap/user/doLogin.html'
