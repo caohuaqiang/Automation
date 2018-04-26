@@ -47,7 +47,7 @@ class Activity(unittest.TestCase):
                       'code': '888888'}
         response_login = session.request(method='get', url=self.yuming + path_register, params=data_login)
         if response_login.status_code == 200:
-            print('注册接口返回json：', end=' ')
+            print('注册接口返回json：')
             print(response_login.json())
             with UseDataBase() as cursor:
                 _SQL = "select user_id, user_name, pwd, mobile_phone, channel_type from rd_user where mobile_phone = %s" % self.phone
