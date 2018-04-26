@@ -5,7 +5,7 @@ sys.path.append('./db_fixture')
 from HTMLTestRunner import HTMLTestRunner
 import unittest
 
-
+# 指定测试用例为当前目录下的interface目录
 test_dir = './interface'
 discover = unittest.defaultTestLoader.discover(test_dir, pattern='jf*.py')
 
