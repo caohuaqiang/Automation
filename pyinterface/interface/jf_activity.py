@@ -36,7 +36,7 @@ class Activity(unittest.TestCase):
         path_code = '/wap/user/getActivityCode.html'
         response_code = session.request(method='post', params={'mobilePhone': self.phone}, url=self.yuming + path_code)
         if response_code.status_code == 200:
-            print('获取验证码接口:')
+            print('获取验证码接口:', end=' ')
             pprint(response_code.json())
         else:
             print('验证码接口翻车！！！')
@@ -47,7 +47,7 @@ class Activity(unittest.TestCase):
                       'code': '888888'}
         response_login = session.request(method='get', url=self.yuming + path_register, params=data_login)
         if response_login.status_code == 200:
-            print('注册接口返回json：')
+            print('注册接口返回json：', end=' ')
             pprint(response_login.json())
             with UseDataBase() as cursor:
                 _SQL = "select user_id, user_name, pwd, mobile_phone, channel_type from rd_user where mobile_phone = %s" % self.phone
