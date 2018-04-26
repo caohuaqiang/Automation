@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*
-import time, sys
+import time, sys, os
+sys.path.append(os.path.abspath(__file__))
 sys.path.append('./interface')
 sys.path.append('./db_fixture')
 from HTMLTestRunner import HTMLTestRunner
