@@ -7,6 +7,7 @@ sys.path.append('./interface')
 sys.path.append('./db_fixture')
 from HTMLTestRunner import HTMLTestRunner
 import unittest
+from pyinterface.ForUse import Report_Mail
 
 # 指定测试用例为当前目录下的interface目录
 test_dir = '../pyinterface/interface'
@@ -23,3 +24,8 @@ if __name__ == '__main__':
     # runner = unittest.TextTestRunner()
     runner.run(discover)
     fp.close()
+
+    report_dict = '../pyinterface/report/'
+    rm = Report_Mail(report_dict)
+    rm.send_mail()
+
