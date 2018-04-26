@@ -1,4 +1,4 @@
-# coding=utf-8
+# -*- coding: utf-8 -*
 import time, sys
 sys.path.append('./interface')
 sys.path.append('./db_fixture')
