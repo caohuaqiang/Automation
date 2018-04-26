@@ -18,8 +18,8 @@ if __name__ == '__main__':
     filename = './report/' + now + '_result.html'
     fp = open(filename, 'wb')
     runner = HTMLTestRunner(stream=fp,
-                            title='caohuaqiangtestreport',
-                            description='report for test')
+                            title='曹华强自动化测试报告',
+                            description='接口自动化测试报告')
     # runner = unittest.TextTestRunner()
     runner.run(discover)
     fp.close()
