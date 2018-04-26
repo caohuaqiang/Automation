@@ -17,9 +17,9 @@ if __name__ == '__main__':
     now = time.strftime('%Y-%m-%d %H_%M_%S')
     filename = './report/' + now + '_result.html'
     fp = open(filename, 'wb')
-    # runner = HTMLTestRunner(stream=fp,
-    #                         title='caohuaqiangtestreport',
-    #                         description='report for test')
-    runner = unittest.TextTestRunner()
+    runner = HTMLTestRunner(stream=fp,
+                            title='caohuaqiangtestreport',
+                            description='report for test')
+    # runner = unittest.TextTestRunner()
     runner.run(discover)
     fp.close()
