@@ -19,7 +19,7 @@ class Activity(unittest.TestCase):
     def tearDown(self):
         pass
 
-    def login(self, phone: str, password='a1234567') -> 'response':
+    def login(self, phone: str, password) -> 'response':
         session = self.session
         path_login = '/wap/user/doLogin.html'
         response_login = session.request(method='post', params={'mobilePhone': phone, 'pwd': password}, url=self.yuming + path_login)
