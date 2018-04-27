@@ -13,7 +13,8 @@ import hashlib
 import configparser
 
 config = configparser.ConfigParser()
-config.read('./user.ini', encoding='utf-8')
+file_path = os.path.dirname(os.path.abspath(__file__)) + '/user.ini'
+config.read(file_path, encoding='utf-8')
 user = eval(config.get(section='user', option='chq'))
 
 
