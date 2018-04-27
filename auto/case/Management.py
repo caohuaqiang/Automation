@@ -66,17 +66,20 @@ class Manage:
             driver.find_element_by_id("ads").send_keys(self.config['bm'])  # 标名
             driver.find_element_by_css_selector('[name="borrowNo"]').send_keys(self.config['product_number'])  # 项目编号
 
-            red_path = '//*[@lay-value="%s"]' % self.config['redpacket']
-            coupon_path = '//*[@lay-value="%s"]' % self.config['coupon']
-            if self.config['redpacket'] != '':
-                driver.find_element_by_css_selector('[value="请选择红包方案"]').click()  # 弹出红包方案下拉框
-                time.sleep(0.5)
-                driver.find_element_by_xpath(red_path).click()
+            if self.config['type'] != '新手标':
+                red_path = '//*[@lay-value="%s"]' % self.config['redpacket']
+                coupon_path = '//*[@lay-value="%s"]' % self.config['coupon']
+                if self.config['redpacket'] != '':
+                    driver.find_element_by_css_selector('[value="请选择红包方案"]').click()  # 弹出红包方案下拉框
+                    time.sleep(0.5)
+                    driver.find_element_by_xpath(red_path).click()
 
-            if self.config['coupon'] != '':
-                driver.find_element_by_css_selector('[value="请选择加息券方案"]').click()  # 弹出加息券方案下拉框
-                time.sleep(0.5)
-                driver.find_element_by_xpath(coupon_path).click()
+                if self.config['coupon'] != '':
+                    driver.find_element_by_css_selector('[value="请选择加息券方案"]').click()  # 弹出加息券方案下拉框
+                    time.sleep(0.5)
+                    driver.find_element_by_xpath(coupon_path).click()
+            else:
+                pass
 
             driver.find_element_by_id("account").send_keys(self.config['money'])  # 标的金额
             driver.find_element_by_id("apr").send_keys(self.config['apr'])  # 年利率
