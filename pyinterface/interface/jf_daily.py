@@ -68,6 +68,7 @@ class App(unittest.TestCase):
         res_recommend = self.session.request(method='get', url=url_index, params= data_index,)
         if res_recommend.status_code == 200:
             rec_pro = res_recommend.json()['res_data']['fixBorrowList']
+            pprint(rec_pro)
         else:
             raise Exception('首页接口翻车')
 
@@ -75,7 +76,6 @@ class App(unittest.TestCase):
             _sql = "SELECT * from rd_borrow where `status` = 1 and is_recommend = 1;"
             cursor.execute(_sql)
             contents = cursor.fetchall()
-            pprint(contents)
         if contents:
             self.assertNotEqual(rec_pro, [])
 

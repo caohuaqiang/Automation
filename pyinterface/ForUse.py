@@ -2,16 +2,10 @@
 import sys, os
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-from pprint import pprint
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from email.header import Header
-from auto.method.useful import ini
 import smtplib
-import time
-import hashlib
-import base64
-import requests
 
 
 class Report_Mail:
@@ -67,121 +61,6 @@ class Report_Mail:
         smtp.sendmail(send_user, receiver, msgRoot.as_string())
         smtp.quit()
         print("send email success!")
-
-
-# def app_sign():
-#     """
-#     返回data字典：
-#     data = {'appkey': ***,
-#             'signa': ***,
-#              'ts': ***,
-#              'id': ***,
-#              'pwd': ***}
-#     其中，id 和 pwd 取自ini文件夹下的配置文件config.ini的[user]区域的username、password
-#     """
-#
-#     # 加密规则：
-#     # 1.appkey = 'V/SQ/yTyYjDmNLXB2unELw==' (死值)
-#     # 2.给定一个固定字符串 a = 'LzgvD74cyEspGADEKOxAhA=='
-#     # 3.ts 为当前时间的时间戳（中国上海） 10位数字
-#     # 4.signa 加密方式为 md5加密  16位小写
-#     # 5.pwd 密码  加密方式为  base64加密
-#     #
-#     # 以下为signa加密方式：
-#     # 1.获取到 当前时间的时间戳ts
-#     # 2.将给定的固定字符串a与ts拼接得到一个新的字符串，并进行md5加密
-#     # 3.将上一步得到的字符串与appkey拼接，得到一个新的字符串，进行md5加密
-#     # 4.最后将得到的字符串转为大写，获得到的新字符串即为signa
-#
-#     appkey = 'V/SQ/yTyYjDmNLXB2unELw=='  # 固定值，得到了appkey
-#     a = 'LzgvD74cyEspGADEKOxAhA=='
-#
-#     ts = int(time.time())
-#     # print('ts: ', ts)
-#
-#     A = a + str(ts)
-#     A_md5 = hashlib.md5(A.encode('utf-8'))
-#     B = A_md5.hexdigest()  # 按16位输出
-#
-#     C = B + appkey
-#     C_md5 = hashlib.md5(C.encode('utf-8'))
-#     D = C_md5.hexdigest()  # 按16位输出
-#
-#     signa = D.upper()  # 转成大写，得到了signa
-#     # print('signa: ', signa)
-#
-#     filepath = './user.ini'
-#     wj = ini(filepath)
-#     user = eval(wj.get(section='user', option='chq'))  # 从配置文件中拿到字符串，再转成字典
-#
-#     phone = user['username']
-#     password = user['password']
-#     pwd = base64.b64encode(password.encode(encoding='utf-8'))
-#
-#     # data = {'appkey': appkey,
-#     #         'signa': signa,
-#     #         'ts': ts,
-#     #         'id': phone,
-#     #         'pwd': pwd}
-#
-#     data = {'appkey': appkey,
-#             'signa': signa,
-#             'ts': ts}
-#     return data
-
-
-# class IOS:
-#     def __init__(self, phone, password='a1234567'):
-#         """ios签名加密"""
-#         appkey = 'V/SQ/yTyYjDmNLXB2unELw=='  # 固定值，得到了appkey
-#         a = 'LzgvD74cyEspGADEKOxAhA=='
-#         ts = int(time.time())
-#         A = a + str(ts)
-#         A_md5 = hashlib.md5(A.encode('utf-8'))
-#         B = A_md5.hexdigest()  # 按16位输出
-#         C = B + appkey
-#         C_md5 = hashlib.md5(C.encode('utf-8'))
-#         D = C_md5.hexdigest()  # 按16位输出
-#         signa = D.upper()  # 转成大写，得到了signa
-#         signature = {'appkey': appkey,
-#                      'signa': signa,
-#                      'ts': ts}
-#         self.signature = signature
-#         self.phone = phone
-#         self.password = password
-#         self.session = requests.session()
-#
-#     def login(self):
-#         """登录"""
-#         data_login = self.signature
-#         data_login['id'] = self.phone
-#         data_login['pwd'] = base64.b64encode(self.password.encode(encoding='utf-8'))
-#         response = self.session.request(method='post', url='https://www-t.jfcaifu.com/app/user/doLogin.html', params=data_login)
-
-
-# if __name__ == '__main__':
-#     # report_dict = '../pyinterface/report/'
-#     # rm = Report_Mail(report_dict)
-#     # rm.send_mail()
-#
-#     # pprint(ios())
-#     data = app_sign()
-#     print(data)
-#
-#     session = requests.session()
-#     response = session.request(method='post', url='https://www-t.jfcaifu.com/app/user/doLogin.html', params=data)
-#     # pprint(response.json())
-#
-#     token = response.json()['res_data']['oauth_token']
-#     # print(token)
-#
-#     url_index = 'https://www-t.jfcaifu.com/app/v500/index.html'
-#     data_index = {'signa': data['signa'], 'ts': data['ts'], 'appkey': app_sign()['appkey'], 'sign': token,}
-#     data_index['user_id'] = '1687'
-#     response_index = session.request(method='get', url=url_index, params= data_index, )
-#     # pprint(response_index.json())
-#     pprint(response_index.json()['res_data']['fixBorrowList'])
-
 
 
 
