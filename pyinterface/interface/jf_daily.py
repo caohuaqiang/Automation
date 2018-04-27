@@ -7,12 +7,17 @@ parentdir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))  # 父�
 sys.path.insert(0, parentdir)
 from pprint import pprint
 from pyinterface.db_fixture.pmq import UseDataBase
+from auto.method.useful import ini
 import base64
 import time
 import hashlib
 
 
+user = eval(ini('./user.ini').get(section='user', option='chq'))
+
+
 class App(unittest.TestCase):
+    """app移动端"""
     def setUp(self):
         """ios签名加密"""
         appkey = 'V/SQ/yTyYjDmNLXB2unELw=='  # 固定值，得到了appkey
@@ -26,8 +31,10 @@ class App(unittest.TestCase):
         D = C_md5.hexdigest()  # 按16位输出
         signa = D.upper()  # 转成大写，得到了signa
 #---------------------------------------------------------------------------------------
-        self.phone = '15821903152'
-        self.password = 'a1234567'
+        # self.phone = '15821903152'
+        # self.password = 'a1234567'
+        self.phone = user['username']
+        self.password = user['password']
         signature = {'appkey': appkey,
                      'signa': signa,
                      'ts': ts}
@@ -73,7 +80,6 @@ class App(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
-
 
 
 
