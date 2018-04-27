@@ -7,13 +7,14 @@ parentdir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))  # çˆ¶è·
 sys.path.insert(0, parentdir)
 from pprint import pprint
 from pyinterface.db_fixture.pmq import UseDataBase
-from auto.method.useful import ini
 import base64
 import time
 import hashlib
+import configparser
 
-
-user = eval(ini('./user.ini').get(section='user', option='chq'))
+config = configparser.ConfigParser()
+config.read('./user.ini', encoding='utf-8')
+user = eval(config.get(section='user', option='chq'))
 
 
 class App(unittest.TestCase):
