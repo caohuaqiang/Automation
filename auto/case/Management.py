@@ -1,5 +1,10 @@
 # -*- coding:utf-8 -*-
 #!/usr/bin/env python
+import sys, os
+sys.path.append(os.path.abspath(__file__))
+parentdir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))     # auto文件夹路径
+sys.path.insert(0, parentdir)
+from pprint import pprint
 from selenium import webdriver
 from selenium.webdriver.support.select import Select
 from selenium.webdriver.common.keys import Keys
@@ -149,11 +154,13 @@ class Manage:
             driver.quit()
 
 
-# if __name__ == '__main__':
-#     # config = eval(ini(filepath='..\\config\\borr.ini').get(section='borrow', option='config'))
-#     pprint(config)
-#     fb = Manage(config)
-#     fb.Fa_Biao()
+if __name__ == '__main__':
+    print(parentdir)
+    filepath = parentdir + '/config/borr.ini'
+    config = eval(ini(filepath).get(section='borrow', option='config'))
+    pprint(config)
+    fb = Manage(config)
+    fb.Fa_Biao()
 
 
 
